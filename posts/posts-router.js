@@ -38,7 +38,7 @@ router.get('/', (req, res) => {
 router.post('/', (req, res) => {
     const newPost = req.body;
 
-    Db.insert(req.body)
+
     if (!newPost.title || !newPost.contents) {
 
         res.status(400).json({ errorMessage: "Please provide title and contents for the post." })
@@ -46,27 +46,29 @@ router.post('/', (req, res) => {
     } else {
 
         try {
-            users.push(newPost);
+            Db.insert(newPost)
+                .then(post => {
+                    res.status(201).json(post);
+                })
 
-            res.status(201).json(posts);
         } catch{
 
             res.status(500).json({ error: "There was an error while saving the post to the database" })
         }
     }
 })
-        // .then(post => {
-        //     res.status(201).json(post);
-        // })
-        // .catch(error => {
-        //     // log error to database
-        //     console.log(error);
-        //     res.status(400).json({
-        //         errorMessage: "Please provide title and contents for the post.",
-        //     });
-        // });
+// .then(post => {
+//     res.status(201).json(post);
+// })
+// .catch(error => {
+//     // log error to database
+//     console.log(error);
+//     res.status(400).json({
+//         errorMessage: "Please provide title and contents for the post.",
+//     });
+// });
 
-});
+//});
 
 
 // router.delete('/:id', (req, res) => {
