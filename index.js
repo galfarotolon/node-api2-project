@@ -4,15 +4,15 @@ const db = require('./data/db.js');
 
 const server = express();
 
-//const hubsRouter = require('./hubs/hubs-router.js')
+const postsRouter = require('./posts/posts-router.js')
 
-//const lessonsRouter = require('./lessons/lessons-router.js')
+
 
 server.use(express.json());
 
 
-// server.use('/api/hubs', hubsRouter)
-// server.use('/api/lessons', lessonsRouter)
+server.use('/api/posts', postsRouter)
+
 
 server.get('/', (req, res) => {
     res.send(`
@@ -22,9 +22,6 @@ server.get('/', (req, res) => {
 });
 
 
-
-// add an endpoint that returns all the messages for a hub
-// add an endpoint for adding new message to a hub
 
 server.listen(5000, () => {
     console.log('\n*** Server Running on http://localhost:5000 ***\n');
